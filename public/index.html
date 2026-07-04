@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync Cinema - Совместный просмотр</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Окно регистрации (ввод ника) -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>Добро пожаловать в кино!</h2>
+            <input type="text" id="nickname-input" placeholder="Введите ваш ник..." required>
+            <button id="join-btn">Войти в зал</button>
+        </div>
+    </div>
+
+    <!-- Основной интерфейс -->
+    <header>
+        <h1>🍿 Sync Cinema</h1>
+        <a href="schedule.html" class="nav-btn">Афиша (Расписание)</a>
+    </header>
+
+    <main id="cinema-room" style="display: none;">
+        <div class="video-container">
+            <!-- Вставь сюда прямую ссылку на .mp4 файл фильма -->
+            <video id="video-player" controls>
+                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+        
+        <div class="chat-container">
+            <div id="chat-messages"></div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Написать в чат...">
+                <button id="send-btn">Отправить</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
