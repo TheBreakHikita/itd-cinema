@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Sync Cinema</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>⚙️ Панель Администратора</h1>
+        <a href="index.html" class="nav-btn" target="_blank">Открыть зал зрителя</a>
+    </header>
+
+    <div class="admin-container">
+        
+        <!-- Секция управления плеером и фильмом -->
+        <div class="admin-section">
+            <h2>Управление фильмом</h2>
+            <div class="admin-input-group">
+                <input type="text" id="movie-url" placeholder="Ссылка на .mp4 файл">
+                <button class="admin-btn" id="set-movie-btn">Запустить фильм</button>
+            </div>
+            <div style="margin-top: 15px;">
+                <video id="admin-video" controls style="width: 100%; max-height: 400px; background: #000;"></video>
+            </div>
+            <p><em>* Дополнительные настройки видео (заглушка)</em></p>
+        </div>
+
+        <!-- Секция чата -->
+        <div class="admin-section">
+            <h2>Настройки чата</h2>
+            <div class="admin-input-group">
+                <button class="admin-btn" id="toggle-chat-btn">Включить чат (Сейчас: Выкл)</button>
+            </div>
+            <p><em>* Фильтры мата и модерация (заглушка)</em></p>
+        </div>
+
+        <!-- Секция афиши -->
+        <div class="admin-section">
+            <h2>Управление афишей</h2>
+            <div class="admin-input-group">
+                <input type="text" id="sched-title" placeholder="Название фильма">
+                <input type="text" id="sched-time" placeholder="Время (напр. 18:00)">
+                <input type="text" id="sched-genre" placeholder="Жанр">
+                <button class="admin-btn" id="add-sched-btn">Добавить в афишу</button>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Название</th><th>Время</th><th>Жанр</th><th>Действие</th></tr>
+                </thead>
+                <tbody id="admin-schedule-list"></tbody>
+            </table>
+            <p><em>* Настройка фонов афиши (заглушка)</em></p>
+        </div>
+
+        <!-- Секция пользователей -->
+        <div class="admin-section">
+            <h2>Пользователи онлайн</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Никнейм</th><th>IP Адрес</th><th>Браузер (User-Agent)</th></tr>
+                </thead>
+                <tbody id="users-list"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

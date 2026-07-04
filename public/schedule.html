@@ -12,17 +12,28 @@
         <a href="index.html" class="nav-btn">Вернуться в зал</a>
     </header>
 
-    <div class="schedule-container">
-        <div class="movie-card">
-            <h3>🎬 Мультфильм "Big Buck Bunny"</h3>
-            <p><strong>Время:</strong> Сегодня в 18:00</p>
-            <p><strong>Жанр:</strong> Комедия, Приключения</p>
-        </div>
-        <div class="movie-card">
-            <h3>🎬 Фильм "Слезы Стали"</h3>
-            <p><strong>Время:</strong> Сегодня в 20:30</p>
-            <p><strong>Жанр:</strong> Фантастика, Боевик</p>
-        </div>
+    <div class="schedule-container" id="schedule-list">
+        <!-- Карточки будут загружаться динамически через JS -->
     </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const scheduleList = document.getElementById('schedule-list');
+
+        socket.on('update-schedule', (schedule) => {
+            scheduleList.innerHTML = '';
+            schedule.forEach(movie => {
+                const card = document.createElement('div');
+                card.classList.add('movie-card');
+                card.innerHTML = `
+                    <h3>🎬 ${movie.title}</h3>
+                    <p><strong>Время:</strong> ${movie.time}</p>
+                    <p><strong>Жанр:</strong> ${movie.genre}</p>
+                `;
+                scheduleList.appendChild(card);
+            });
+        });
+    </script>
 </body>
 </html>

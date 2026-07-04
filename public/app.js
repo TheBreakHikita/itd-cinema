@@ -20,6 +20,7 @@ joinBtn.addEventListener('click', () => {
         loginOverlay.style.display = 'none';
         cinemaRoom.style.display = 'flex';
         // Браузеры запрещают автовоспроизведение со звуком до взаимодействия со страницей.
+        socket.emit('user-join', nickname);
         // Клик по кнопке "Войти" решает эту проблему!
     } else {
         alert('Пожалуйста, введите ник!');
@@ -38,6 +39,21 @@ function sendMessage() {
 sendBtn.addEventListener('click', sendMessage);
 chatInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
+});
+
+socket.on('chat-status', (isEnabled) => {
+    chatInput.disabled = !isEnabled;
+    sendBtn.disabled = !isEnabled;
+    chatInput.placeholder = isEnabled ? "Написать в чат..." : "Чат отключен администратором";
+});
+
+socket.on('chat-error', (msg) => {
+    alert(msg);
+});
+
+socket.on('movie-changed', (url) => {
+    video.src = url;
+    video.load();
 });
 
 socket.on('chat-message', (data) => {

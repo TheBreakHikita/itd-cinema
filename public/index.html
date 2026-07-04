@@ -24,9 +24,8 @@
 
     <main id="cinema-room" style="display: none;">
         <div class="video-container">
-            <!-- Вставь сюда прямую ссылку на .mp4 файл фильма -->
-            <video id="video-player" controls>
-                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+            <!-- Плеер зрителя (без атрибута controls) -->
+            <video id="video-player" style="pointer-events: none;">
                 Ваш браузер не поддерживает видео.
             </video>
         </div>
