@@ -1,196 +1,272 @@
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212;
-    color: #ffffff;
+/* --- ЦВЕТОВАЯ ПАЛИТРА ИТД --- */
+:root {
+    --itd-bg: #121212;
+    --itd-panel: #1c1c1e;
+    --itd-panel-hover: #2c2c2e;
+    --itd-border: #3a3a3c;
+    --itd-border-hover: #48484a;
+    --itd-text: #ffffff;
+    --itd-text-muted: #8e8e93;
+    --itd-blue: #0a84ff;
+    --itd-blue-hover: #007AFF;
+    --itd-red: #ff3b30;
+    --itd-radius: 12px;
+    --itd-radius-sm: 8px;
 }
 
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--itd-bg);
+    color: var(--itd-text);
+    overflow-x: hidden;
+}
+
+/* --- ШАПКА (TOOLBAR ИТД) --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background-color: #1e1e1e;
-    border-bottom: 2px solid #e50914;
-}
-
-h1 { margin: 0; font-size: 24px; }
-
-.nav-btn {
-    color: white;
-    text-decoration: none;
-    background-color: #e50914;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-/* Авторизация */
-#login-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 12px 24px;
+    background: rgba(28, 28, 30, 0.85);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--itd-border);
+    position: sticky;
+    top: 0;
     z-index: 100;
 }
 
-.login-box {
-    background: #1e1e1e;
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
+h1 { 
+    margin: 0; 
+    font-size: 20px; 
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.login-box input {
-    padding: 10px;
-    width: 80%;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 5px;
+.nav-btn {
+    color: var(--itd-text);
+    text-decoration: none;
+    background-color: var(--itd-panel-hover);
+    padding: 8px 16px;
+    border-radius: var(--itd-radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid var(--itd-border);
+    transition: 0.2s;
+}
+.nav-btn:hover {
+    background-color: var(--itd-border);
 }
 
-.login-box button, #send-btn {
-    padding: 10px 20px;
-    background: #e50914;
-    color: white;
+/* --- КНОПКИ (ИТД STYLE) --- */
+button, .admin-btn, #send-btn, #join-btn {
+    padding: 10px 24px;
+    border-radius: var(--itd-radius-sm);
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+    background: var(--itd-blue);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2);
+}
+button:hover, .admin-btn:hover, #send-btn:hover, #join-btn:hover {
+    background: var(--itd-blue-hover);
+    box-shadow: 0 0 15px rgba(0, 122, 255, 0.4);
+}
+button:disabled {
+    background: var(--itd-border-hover);
+    color: var(--itd-text-muted);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.admin-btn.danger { background: var(--itd-panel-hover); border: 1px solid var(--itd-border); color: var(--itd-red); box-shadow: none;}
+.admin-btn.danger:hover { background: var(--itd-red); color: #fff; }
+
+/* --- ИНПУТЫ (ИТД STYLE) --- */
+input {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--itd-border);
+    color: #fff;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: var(--itd-radius-sm);
+    outline: none;
+    transition: 0.2s;
+    font-family: inherit;
+}
+input:focus { border-color: var(--itd-blue); }
+
+/* --- АВТОРИЗАЦИЯ (ИТД MODAL) --- */
+#login-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
 }
 
-/* Главная комната */
+.login-box {
+    background: var(--itd-panel);
+    padding: 30px;
+    border-radius: var(--itd-radius);
+    text-align: center;
+    border: 1px solid var(--itd-border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.login-box h2 { margin-top: 0; font-size: 18px; font-weight: 600; }
+.login-box input { width: calc(100% - 32px); }
+.login-box button { width: 100%; }
+
+/* --- ГЛАВНАЯ КОМНАТА --- */
 main {
     display: flex;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 61px);
 }
 
+/* Плеер */
 .video-container {
     flex: 3;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: var(--itd-bg);
+    padding: 20px;
 }
 
 video {
-    width: 95%;
-    max-height: 90%;
+    width: 100%;
+    max-height: 100%;
+    border-radius: var(--itd-radius);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    background: #000;
     outline: none;
+    border: 1px solid var(--itd-border);
 }
 
+/* Чат */
 .chat-container {
     flex: 1;
-    background: #1e1e1e;
+    background: var(--itd-panel);
     display: flex;
     flex-direction: column;
-    border-left: 1px solid #333;
+    border-left: 1px solid var(--itd-border);
+    min-width: 300px;
 }
 
 #chat-messages {
     flex: 1;
     padding: 15px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .message {
-    margin-bottom: 10px;
+    background: var(--itd-panel-hover);
+    padding: 10px 14px;
+    border-radius: var(--itd-radius-sm);
     word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+    border: 1px solid var(--itd-border);
 }
-
-.message strong { color: #e50914; }
+.message strong { color: var(--itd-blue); margin-right: 5px;}
 
 .chat-input-area {
     display: flex;
-    padding: 10px;
-    background: #121212;
+    padding: 15px;
+    background: rgba(28, 28, 30, 0.95);
+    border-top: 1px solid var(--itd-border);
+    gap: 10px;
 }
+#chat-input { flex: 1; padding: 10px 14px; width: auto; }
 
-#chat-input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-/* Афиша */
+/* --- АФИША (ИТД АРХИВ) --- */
 .schedule-container {
     padding: 30px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 .movie-card {
-    background: #1e1e1e;
+    background: var(--itd-panel-hover);
+    border: 1px solid var(--itd-border);
     padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    border-left: 5px solid #e50914;
+    border-radius: var(--itd-radius);
+    transition: 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
+.movie-card:hover {
+    border-color: var(--itd-blue);
+    background: var(--itd-border);
+    transform: translateY(-2px);
+}
+.movie-card h3 { margin-top: 0; color: #fff; font-size: 18px; }
+.movie-card p { color: var(--itd-text-muted); font-size: 14px; margin: 8px 0; }
+.movie-card strong { color: #fff; }
 
-/* --- СТИЛИ АДМИН-ПАНЕЛИ --- */
+/* --- АДМИН-ПАНЕЛЬ (ИТД НАСТРОЙКИ) --- */
 .admin-container {
-    padding: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .admin-section {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #333;
+    background: var(--itd-panel);
+    padding: 20px 24px;
+    border-radius: var(--itd-radius);
+    border: 1px solid var(--itd-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .admin-section h2 {
     margin-top: 0;
-    color: #e50914;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
-}
-
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.admin-table th, .admin-table td {
-    padding: 10px;
-    border: 1px solid #333;
-    text-align: left;
-}
-
-.admin-table th {
-    background: #2a2a2a;
+    color: #fff;
+    font-size: 18px;
+    border-bottom: 1px solid var(--itd-border);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .admin-input-group {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
+.admin-input-group input { flex: 1; }
 
-.admin-input-group input {
-    flex: 1;
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
 }
-
-.admin-btn {
-    background: #e50914;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+.admin-table th, .admin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--itd-border);
+    text-align: left;
 }
+.admin-table th { color: var(--itd-text-muted); font-weight: 600; text-transform: uppercase; font-size: 12px; }
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover td { background: rgba(255,255,255,0.02); }
 
-.admin-btn:hover { background: #b20710; }
-.admin-btn.danger { background: #555; }
-.admin-btn.danger:hover { background: #ff4444; }
+p em { color: var(--itd-text-muted); font-size: 12px; }

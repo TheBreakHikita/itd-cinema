@@ -33,7 +33,8 @@ let isChatEnabled = false;
 socket.on('chat-status', (status) => {
     isChatEnabled = status;
     toggleChatBtn.innerText = status ? 'Отключить чат (Сейчас: Вкл)' : 'Включить чат (Сейчас: Выкл)';
-    toggleChatBtn.style.background = status ? '#008000' : '#e50914';
+    toggleChatBtn.style.background = status ? '#34c759' : '#3a3a3c'; // Зеленый из ИТД или серый
+    toggleChatBtn.style.color = '#fff';
 });
 
 toggleChatBtn.addEventListener('click', () => {
