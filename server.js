@@ -18,7 +18,7 @@ let videoState = {
 
 // Глобальные настройки и данные
 let chatEnabled = false; // Чат по умолчанию отключен
-let currentMovieUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+let currentMovieUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 let usersList = []; // Список пользователей
 let schedule = [
     { id: 1, title: 'Мультфильм "Big Buck Bunny"', time: 'Сегодня в 18:00', genre: 'Комедия, Приключения' }

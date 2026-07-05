@@ -75,7 +75,9 @@ socket.on('chat-error', (msg) => {
 });
 
 socket.on('movie-changed', (url) => {
+    video.pause();
     video.src = url;
+    video.type = "video/mp4";
     video.load();
 });
 

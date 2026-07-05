@@ -17,7 +17,10 @@ setMovieBtn.addEventListener('click', () => {
 });
 
 socket.on('movie-changed', (url) => {
-    adminVideo.src = url;
+    adminVideo.pause(); // Останавливаем текущее видео
+    adminVideo.src = url; // Меняем ссылку
+    adminVideo.type = "video/mp4"; // Явно указываем тип файла
+    adminVideo.load(); // Принудительно заставляем браузер загрузить новый файл
 });
 
 // Отправка событий синхронизации от админа
