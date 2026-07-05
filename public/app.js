@@ -10,22 +10,45 @@ const chatMessages = document.getElementById('chat-messages');
 const chatInput = document.getElementById('chat-input');
 const sendBtn = document.getElementById('send-btn');
 
-let nickname = '';
+let nickname = localStorage.getItem('sync_cinema_nickname') || ''; // Проверяем, есть ли сохраненный ник
 let isExternalEvent = false; // Флаг, чтобы избежать бесконечного цикла синхронизации
 
-// Логика входа
+const logoutBtn = document.getElementById('logout-btn');
+
+// Функция для авторизации и входа в зал
+function enterRoom(userNickname) {
+    nickname = userNickname;
+    localStorage.setItem('sync_cinema_nickname', nickname); // Запоминаем пользователя навсегда
+    
+    loginOverlay.style.display = 'none';
+    cinemaRoom.style.display = 'flex';
+    if (logoutBtn) logoutBtn.style.display = 'block'; // Показываем кнопку смены ника
+    
+    socket.emit('user-join', nickname);
+}
+
+// ПРОВЕРКА: Если это старый пользователь, сразу пускаем в зал
+if (nickname) {
+    enterRoom(nickname);
+}
+
+// Логика входа (если это НОВЫЙ пользователь)
 joinBtn.addEventListener('click', () => {
-    nickname = nicknameInput.value.trim();
-    if (nickname) {
-        loginOverlay.style.display = 'none';
-        cinemaRoom.style.display = 'flex';
-        // Браузеры запрещают автовоспроизведение со звуком до взаимодействия со страницей.
-        socket.emit('user-join', nickname);
-        // Клик по кнопке "Войти" решает эту проблему!
+    const inputVal = nicknameInput.value.trim();
+    if (inputVal) {
+        enterRoom(inputVal);
     } else {
         alert('Пожалуйста, введите ник!');
     }
 });
+
+// Логика смены ника
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('sync_cinema_nickname'); // Удаляем старый ник
+        location.reload(); // Перезагружаем страницу, чтобы вернуть окно регистрации
+    });
+}
 
 // === ЧАТ ===
 function sendMessage() {
@@ -87,7 +110,16 @@ socket.on('sync-video', (state) => {
     isExternalEvent = true;
     video.currentTime = state.time;
     if (state.isPlaying) {
-        video.play().catch(e => console.log("Автоплей заблокирован браузером"));
+        video.play().catch(e => {
+            console.log("Автоплей заблокирован браузером");
+            // Если мы зашли автоматически и браузер не дал включить видео
+            const playMsg = document.createElement('div');
+            playMsg.style.cssText = "position:absolute; top:20px; left:50%; transform:translateX(-50%); background:var(--itd-blue); color:#fff; padding:10px 20px; border-radius:8px; cursor:pointer; z-index:1000; box-shadow:0 4px 15px rgba(0,0,0,0.5);";
+            playMsg.innerText = "Кликните сюда, чтобы включить звук и видео!";
+            playMsg.onclick = () => { video.play(); playMsg.remove(); };
+            document.querySelector('.video-container').style.position = 'relative';
+            document.querySelector('.video-container').appendChild(playMsg);
+        });
     }
 });
 
