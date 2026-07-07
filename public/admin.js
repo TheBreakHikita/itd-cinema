@@ -16,11 +16,17 @@ setMovieBtn.addEventListener('click', () => {
     }
 });
 
+// Получение текущего состояния при входе админа
+socket.on('sync-video', (state) => {
+    adminVideo.currentTime = state.time;
+    if (state.isPlaying) adminVideo.play().catch(() => console.log("Автоплей заблокирован"));
+});
+
 socket.on('movie-changed', (url) => {
-    adminVideo.pause(); // Останавливаем текущее видео
-    adminVideo.src = url; // Меняем ссылку
-    adminVideo.type = "video/mp4"; // Явно указываем тип файла
-    adminVideo.load(); // Принудительно заставляем браузер загрузить новый файл
+    adminVideo.pause(); 
+    adminVideo.removeAttribute('src'); 
+    adminVideo.src = url; 
+    adminVideo.load(); 
 });
 
 // Отправка событий синхронизации от админа
